@@ -33,6 +33,12 @@ while [ ! -z "$1" ]; do
 	dirname=`dirname "$file"`
 	newname="${picdate}.jpg"
 	if [ ! -z $picdate ]; then
+    # if file exists, make it unique
+    u=0
+    while [ -e "$dirname/$newname" ]; do
+      u=$((u+1))
+      newname="${picdate}_`printf "%003d" $u`.jpg"
+    done
 	  [ -z $NOTHING ] && mv -b "$file" "$dirname/$newname";
 	  echo "$file -> $dirname/$newname";
 	else
